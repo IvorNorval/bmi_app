@@ -28,21 +28,24 @@ class _InputPageState extends State<InputPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                color: Colors.white,
-                height: height.toDouble(),
-                width: weight.toDouble(),
-                child: Center(
-                  child: Image.asset(
-                    'images/$genderString$ageImage.jpg',
-                    fit: BoxFit.scaleDown,
+          Container(
+            height: 220,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  color: Colors.white,
+                  height: height.toDouble(),
+                  width: weight.toDouble(),
+                  child: Center(
+                    child: Image.asset(
+                      'images/$genderString$ageImage.jpg',
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             children: <Widget>[
@@ -82,81 +85,149 @@ class _InputPageState extends State<InputPage> {
               ),
             ],
           ),
-          SliderTheme(
-            data: SliderTheme.of(context).copyWith(
-              activeTrackColor: kActiveColor,
-              inactiveTrackColor: kInactiveColor,
-              thumbColor: kAccentColor,
-              overlayColor: kAccentTransparentColor,
-              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
-              overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
-            ),
-            child: Slider(
-              value: height.toDouble(),
-              min: 30,
-              max: 220,
-              onChanged: (double newValue) {
-                setState(() {
-                  height = newValue.round();
-                  print(height);
-                });
-              },
-            ),
+          Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Text(
+                  'HEIGHT',
+                  style: kBodyTextStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Text(
+                  height.toString(),
+                  style: kBodyTextStyle,
+                ),
+              ),
+              Text(
+                'cm',
+                style: kBodyTextStyle,
+              ),
+              Expanded(
+                child: SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    activeTrackColor: kActiveColor,
+                    inactiveTrackColor: kInactiveColor,
+                    thumbColor: kAccentColor,
+                    overlayColor: kAccentTransparentColor,
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                    overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
+                  ),
+                  child: Slider(
+                    value: height.toDouble(),
+                    min: 30,
+                    max: 220,
+                    onChanged: (double newValue) {
+                      setState(() {
+                        height = newValue.round();
+                        print(height);
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
-          SliderTheme(
-            data: SliderTheme.of(context).copyWith(
-              activeTrackColor: kActiveColor,
-              inactiveTrackColor: kInactiveColor,
-              thumbColor: kAccentColor,
-              overlayColor: kAccentTransparentColor,
-              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
-              overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
-            ),
-            child: Slider(
-              value: weight.toDouble(),
-              min: 20.0,
-              max: 150.0,
-              onChanged: (double newValue) {
-                setState(() {
-                  weight = newValue.round();
-                  print(weight);
-                });
-              },
-            ),
+          Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Text(
+                  'WEIGHT',
+                  style: kBodyTextStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Text(
+                  weight.toString(),
+                  style: kBodyTextStyle,
+                ),
+              ),
+              Text(
+                'kg',
+                style: kBodyTextStyle,
+              ),
+              Expanded(
+                child: SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    activeTrackColor: kActiveColor,
+                    inactiveTrackColor: kInactiveColor,
+                    thumbColor: kAccentColor,
+                    overlayColor: kAccentTransparentColor,
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                    overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
+                  ),
+                  child: Slider(
+                    value: weight.toDouble(),
+                    min: 20.0,
+                    max: 150.0,
+                    onChanged: (double newValue) {
+                      setState(() {
+                        weight = newValue.round();
+                        print(weight);
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
-          SliderTheme(
-            data: SliderTheme.of(context).copyWith(
-              activeTrackColor: kActiveColor,
-              inactiveTrackColor: kInactiveColor,
-              thumbColor: kAccentColor,
-              overlayColor: kAccentTransparentColor,
-              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
-              overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
-            ),
-            child: Slider(
-              value: age.toDouble(),
-              min: 0,
-              max: 100,
-              onChanged: (double newValue) {
-                setState(() {
-                  age = newValue.round();
-                  if (age < kToddlerAge)
-                    ageImage = kBabyAge;
-                  else if (age < kChildAge)
-                    ageImage = kToddlerAge;
-                  else if (age < kTeenagerAge)
-                    ageImage = kChildAge;
-                  else if (age < kAdultAge)
-                    ageImage = kTeenagerAge;
-                  else if (age < k50PlusAge)
-                    ageImage = kAdultAge;
-                  else if (age < kOldAge)
-                    ageImage = k50PlusAge;
-                  else
-                    ageImage = kOldAge;
-                });
-              },
-            ),
+          Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Text(
+                  'AGE',
+                  style: kBodyTextStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Text(
+                  age.toString(),
+                  style: kBodyTextStyle,
+                ),
+              ),
+              Expanded(
+                child: SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    activeTrackColor: kActiveColor,
+                    inactiveTrackColor: kInactiveColor,
+                    thumbColor: kAccentColor,
+                    overlayColor: kAccentTransparentColor,
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                    overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
+                  ),
+                  child: Slider(
+                    value: age.toDouble(),
+                    min: 0,
+                    max: 100,
+                    onChanged: (double newValue) {
+                      setState(() {
+                        age = newValue.round();
+                        if (age < kToddlerAge)
+                          ageImage = kBabyAge;
+                        else if (age < kChildAge)
+                          ageImage = kToddlerAge;
+                        else if (age < kTeenagerAge)
+                          ageImage = kChildAge;
+                        else if (age < kAdultAge)
+                          ageImage = kTeenagerAge;
+                        else if (age < k50PlusAge)
+                          ageImage = kAdultAge;
+                        else if (age < kOldAge)
+                          ageImage = k50PlusAge;
+                        else
+                          ageImage = kOldAge;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
