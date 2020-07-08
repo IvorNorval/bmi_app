@@ -5,6 +5,17 @@ enum Gender {
   female,
 }
 
+const kBabyAge = 0;
+const kToddlerAge = 1;
+const kChildAge = 5;
+const kTeenagerAge = 13;
+const kAdultAge = 21;
+const k50PlusAge = 50;
+const kOldAge = 70;
+
+const kFemale = 'female';
+const kMale = 'man';
+
 const kBottomContainerHeight = 80.0;
 const kActiveCardColor = Color(0xFF1D1E33);
 const kInactiveCardColor = Color(0xFF111328);
