@@ -1,6 +1,8 @@
 import 'package:bmi_app/components/bmi_calculator.dart';
 import 'package:bmi_app/components/bottom_button.dart';
 import 'package:bmi_app/components/icon_content.dart';
+import 'package:bmi_app/components/measurement.dart';
+import 'package:bmi_app/components/measurement_row.dart';
 import 'package:bmi_app/components/results_page.dart';
 import 'package:bmi_app/components/reusable_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,12 +17,16 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Gender selectedGender;
-  int height = 192;
-  int weight = 70;
-  int age = 30;
+  Gender selectedGender = Gender.female;
   int ageImage = kAdultAge;
   String genderString = kFemale;
+
+  Measurement heightMeasurement = Measurement(
+      name: 'Height', unit: 'cm', initialValue: 170, max: 230, min: 60);
+  Measurement weightMeasurement = Measurement(
+      name: 'Weight', unit: 'kg', initialValue: 70, max: 150, min: 5);
+  Measurement ageMeasurement =
+      Measurement(name: 'Age', unit: ' ', initialValue: 30, max: 110, min: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +41,12 @@ class _InputPageState extends State<InputPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    color: Colors.white,
-                    height: height.toDouble(),
-                    width: weight.toDouble(),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    height: heightMeasurement.value.toDouble(),
+                    width: weightMeasurement.value.toDouble(),
                     child: Center(
                       child: Image.asset(
                         'images/$genderString$ageImage.jpg',
@@ -86,160 +95,49 @@ class _InputPageState extends State<InputPage> {
                 ),
               ],
             ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: Text(
-                    'HEIGHT',
-                    style: kBodyTextStyle,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: Text(
-                    height.toString(),
-                    style: kBodyTextStyle,
-                  ),
-                ),
-                Text(
-                  'cm',
-                  style: kBodyTextStyle,
-                ),
-                Expanded(
-                  child: SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      activeTrackColor: kActiveColor,
-                      inactiveTrackColor: kInactiveColor,
-                      thumbColor: kAccentColor,
-                      overlayColor: kAccentTransparentColor,
-                      thumbShape:
-                          RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                      overlayShape:
-                          RoundSliderOverlayShape(overlayRadius: 30.0),
-                    ),
-                    child: Slider(
-                      value: height.toDouble(),
-                      min: 30,
-                      max: 220,
-                      onChanged: (double newValue) {
-                        setState(() {
-                          height = newValue.round();
-                          print(height);
-                        });
-                      },
-                    ),
-                  ),
-                ),
-              ],
+            MeasurementRow(
+              measurement: heightMeasurement,
+              onChange: (double newValue) {
+                setState(() {
+                  heightMeasurement.value = newValue.round();
+                });
+              },
             ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: Text(
-                    'WEIGHT',
-                    style: kBodyTextStyle,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: Text(
-                    weight.toString(),
-                    style: kBodyTextStyle,
-                  ),
-                ),
-                Text(
-                  'kg',
-                  style: kBodyTextStyle,
-                ),
-                Expanded(
-                  child: SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      activeTrackColor: kActiveColor,
-                      inactiveTrackColor: kInactiveColor,
-                      thumbColor: kAccentColor,
-                      overlayColor: kAccentTransparentColor,
-                      thumbShape:
-                          RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                      overlayShape:
-                          RoundSliderOverlayShape(overlayRadius: 30.0),
-                    ),
-                    child: Slider(
-                      value: weight.toDouble(),
-                      min: 20.0,
-                      max: 150.0,
-                      onChanged: (double newValue) {
-                        setState(() {
-                          weight = newValue.round();
-                          print(weight);
-                        });
-                      },
-                    ),
-                  ),
-                ),
-              ],
+            MeasurementRow(
+              measurement: weightMeasurement,
+              onChange: (double newValue) {
+                setState(() {
+                  weightMeasurement.value = newValue.round();
+                });
+              },
             ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: Text(
-                    'AGE',
-                    style: kBodyTextStyle,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: Text(
-                    age.toString(),
-                    style: kBodyTextStyle,
-                  ),
-                ),
-                Expanded(
-                  child: SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      activeTrackColor: kActiveColor,
-                      inactiveTrackColor: kInactiveColor,
-                      thumbColor: kAccentColor,
-                      overlayColor: kAccentTransparentColor,
-                      thumbShape:
-                          RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                      overlayShape:
-                          RoundSliderOverlayShape(overlayRadius: 30.0),
-                    ),
-                    child: Slider(
-                      value: age.toDouble(),
-                      min: 0,
-                      max: 100,
-                      onChanged: (double newValue) {
-                        setState(() {
-                          age = newValue.round();
-                          if (age < kToddlerAge)
-                            ageImage = kBabyAge;
-                          else if (age < kChildAge)
-                            ageImage = kToddlerAge;
-                          else if (age < kTeenagerAge)
-                            ageImage = kChildAge;
-                          else if (age < kAdultAge)
-                            ageImage = kTeenagerAge;
-                          else if (age < k50PlusAge)
-                            ageImage = kAdultAge;
-                          else if (age < kOldAge)
-                            ageImage = k50PlusAge;
-                          else
-                            ageImage = kOldAge;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-              ],
+            MeasurementRow(
+              measurement: ageMeasurement,
+              onChange: (double newValue) {
+                setState(() {
+                  ageMeasurement.value = newValue.round();
+                  if (ageMeasurement.value < kToddlerAge)
+                    ageImage = kBabyAge;
+                  else if (ageMeasurement.value < kChildAge)
+                    ageImage = kToddlerAge;
+                  else if (ageMeasurement.value < kTeenagerAge)
+                    ageImage = kChildAge;
+                  else if (ageMeasurement.value < kAdultAge)
+                    ageImage = kTeenagerAge;
+                  else if (ageMeasurement.value < k50PlusAge)
+                    ageImage = kAdultAge;
+                  else if (ageMeasurement.value < kOldAge)
+                    ageImage = k50PlusAge;
+                  else
+                    ageImage = kOldAge;
+                });
+              },
             ),
             BottomButton(
               onTap: () {
-                BmiCalculator calc =
-                    BmiCalculator(height: height, wright: weight);
+                BmiCalculator calc = BmiCalculator(
+                    height: heightMeasurement.value,
+                    wright: weightMeasurement.value);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -249,7 +147,7 @@ class _InputPageState extends State<InputPage> {
                               interpretation: calc.getInterpretation(),
                             )));
               },
-              buttonTitle: 'BMI CALCULATE...',
+              buttonTitle: 'CALCULATE BMI...',
             ),
           ],
         ),

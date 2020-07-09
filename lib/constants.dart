@@ -25,8 +25,15 @@ const kActiveColor = Color(0xFFFFFFFF);
 const kInactiveColor = Color(0xFF8D8E98);
 
 const kLabelTextStyle = TextStyle(
-  fontSize: 18.0,
+  fontSize: 16.0,
   color: Color(0xFF8D8E98),
+  fontWeight: FontWeight.bold,
+);
+
+const kAppBarTextStyle = TextStyle(
+  fontSize: 18.0,
+  color: kAccentColor,
+  fontWeight: FontWeight.bold,
 );
 
 const kNumberTextStyle = TextStyle(
